@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Model_Grafo {
+	
+	//Advertencia no si la logica esta correcta, talvez este mal, con un 75%
     private Set<String> vertices;
     private Set<Arista> aristas;
 
@@ -15,55 +17,56 @@ public class Model_Grafo {
         aristas = new HashSet<>();
     }
 
-    public void agregarVertice(String vertice) {
+    public void AddVertice(String vertice) {
         vertices.add(vertice);
     }
 
-    public void agregarArista(String v1, String v2) {
+    public void addArista(String v1, String v2) {
         aristas.add(new Arista(v1, v2));
     }
 
-    public Set<String> conjuntoDominanteMinimo() {
-        Set<String> conjuntoDominante = new HashSet<>();
-        Set<Arista> aristasNoCubiertas = new HashSet<>(aristas);
+    public Set<String> setDominantMinimum() {
+        Set<String> setDominant = new HashSet<>();
+        
+        Set<Arista> aristasNotCovered = new HashSet<>(aristas);
 
-        while (!aristasNoCubiertas.isEmpty()) {
-            String mejorVertice = null;
-            int maxCubiertos = 0;
+        while (!aristasNotCovered.isEmpty()) {
+            String bestVertice = null;
+            int maxCovered = 0;
 
             for (String vertice : vertices) {
-                if (!conjuntoDominante.contains(vertice)) {
-                    int cubiertos = contarAristasCubiertas(vertice, conjuntoDominante, aristasNoCubiertas);
+                if (!setDominant.contains(vertice)) {
+                    int covered = countAristasCovers(vertice, setDominant, aristasNotCovered);
 
-                    if (cubiertos > maxCubiertos) {
-                        maxCubiertos = cubiertos;
-                        mejorVertice = vertice;
+                    if (covered > maxCovered) {
+                        maxCovered = covered;
+                        bestVertice = vertice;
                     }
                 }
             }
 
-            if (mejorVertice != null) {
-                conjuntoDominante.add(mejorVertice);
-                eliminarAristasCubiertas(mejorVertice, conjuntoDominante, aristasNoCubiertas);
+            if (bestVertice != null) {
+                setDominant.add(bestVertice);
+                removeCoverAristas(bestVertice, setDominant, aristasNotCovered);
             }
         }
 
-        return conjuntoDominante;
+        return setDominant;
     }
     
-    private int contarAristasCubiertas(String vertice, Set<String> conjuntoDominante, Set<Arista> aristasNoCubiertas) {
+    private int countAristasCovers(String vertice, Set<String> setDominant, Set<Arista> aristasNotCovered) {
         int cubiertos = 0;
-        for (Arista arista : aristasNoCubiertas) {
+        for (Arista arista : aristasNotCovered) {
             if (arista.getVertice1().equals(vertice) || arista.getVertice2().equals(vertice)) {
                 cubiertos++;
-            } else if (conjuntoDominante.contains(arista.getVertice1()) || conjuntoDominante.contains(arista.getVertice2())) {
+            } else if (setDominant.contains(arista.getVertice1()) || setDominant.contains(arista.getVertice2())) {
                 cubiertos++;
             }
         }
         return cubiertos;
     }
 
-    private void eliminarAristasCubiertas(String vertice, Set<String> conjuntoDominante, Set<Arista> aristasNoCubiertas) {
+    private void removeCoverAristas(String vertice, Set<String> conjuntoDominante, Set<Arista> aristasNoCubiertas) {
         Set<Arista> aristasAEliminar = new HashSet<>();
 
         for (Arista arista : aristasNoCubiertas) {
@@ -77,25 +80,24 @@ public class Model_Grafo {
 
 
 
-    public void cargarDesdeArchivo(String nombreArchivo) {
+    public void loadFromFile(String nameOfTheFile) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-                if (linea.contains(",")) {
-                    String[] partes = linea.split(",");
+            BufferedReader br = new BufferedReader(new FileReader(nameOfTheFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains(",")) {
+                    String[] partes = line.split(",");
                     if (partes.length == 2) {
-                        agregarArista(partes[0], partes[1]);
+                        addArista(partes[0], partes[1]);
                     }
                 } else {
-                    agregarVertice(linea);
+                    AddVertice(line);
                 }
             }
 
             br.close();
         } catch (IOException e) {
-            System.out.println("Error al cargar el archivo: " + e.getMessage());
+            System.out.println("Error uploading file: " + e.getMessage());
         }
     }
     
@@ -107,6 +109,7 @@ public class Model_Grafo {
     public Set<Arista> getAristas() {
         return aristas;
     }
+
     
     
 }
