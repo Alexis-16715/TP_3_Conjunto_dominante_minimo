@@ -16,6 +16,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import javax.swing.JFileChooser;
+import javax.swing.SwingConstants;
+import java.awt.Component;
 
 
 public class Main_View {
@@ -37,6 +39,7 @@ public class Main_View {
     
     
     private JFileChooser fileChooser;
+    private final JButton btnNewButton = new JButton("New button");
 
     public Main_View() {
     	initialize();
@@ -46,8 +49,8 @@ public class Main_View {
     public void initialize() {
         frame = new JFrame("Minimal Dominant Set");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLayout(new BorderLayout());
+        frame.setSize(400, 350);
+        frame.getContentPane().setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
@@ -65,6 +68,7 @@ public class Main_View {
         resultadoArea.setEditable(false);
 
         findingDominatButton = new JButton("Finding Dominant Set");
+        findingDominatButton.setBounds(10, 30, 200, 45);
 
         fieldUploadButton = new JButton("Load from file");
         
@@ -75,12 +79,17 @@ public class Main_View {
         panel.add(aristaField);
         panel.add(addVerticeButton);
         panel.add(addAristaButton);
-
-        frame.add(panel, BorderLayout.NORTH);
-        frame.add(resultadoArea, BorderLayout.CENTER);
-        frame.add(findingDominatButton, BorderLayout.SOUTH);
-        frame.add(fieldUploadButton, BorderLayout.SOUTH);
-
+        
+        
+        
+        
+        frame.getContentPane().add(panel, BorderLayout.NORTH);
+        frame.getContentPane().add(resultadoArea, BorderLayout.CENTER);
+//        frame.getContentPane().add(findingDominatButton, BorderLayout.WEST);
+        frame.getContentPane().add(fieldUploadButton, BorderLayout.SOUTH);
+        
+        frame.getContentPane().add(findingDominatButton, BorderLayout.EAST);
+        
         frame.setVisible(true);
     }
     
