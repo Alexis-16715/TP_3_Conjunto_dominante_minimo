@@ -69,7 +69,7 @@ public class Main_Controller {
             public void actionPerformed(ActionEvent e) {
                 String vertice = verticeField.getText().trim();
                 if (!vertice.isEmpty()) {
-                	grafo.AddVertice(vertice);
+                	grafo.AddVertice(Integer.parseInt(vertice));
                     verticeField.setText("");
                 }
             }
@@ -80,7 +80,7 @@ public class Main_Controller {
             public void actionPerformed(ActionEvent e) {
                 String[] arista = aristaField.getText().trim().split(",");
                 if (arista.length == 2) {
-                    grafo.addArista(arista[0], arista[1]);
+                    grafo.addArista(Integer.parseInt(arista[0]), Integer.parseInt(arista[1]));
                     aristaField.setText("");
                 }
             }
@@ -121,7 +121,7 @@ public class Main_Controller {
     //Esto se tendria que cambiar de lugar para que cumpla con MVC
 
     public void findSetDominant() {
-        Set<String> conjuntoDominante = grafo.setDominantMinimum();
+        Set<Integer> conjuntoDominante = grafo.setDominantMinimum();
         view.actualizarResultado("Conjunto Dominante Mínimo: " + conjuntoDominante);
     }
     

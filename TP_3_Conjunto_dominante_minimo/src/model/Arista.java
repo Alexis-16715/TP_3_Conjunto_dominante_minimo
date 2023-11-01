@@ -1,19 +1,19 @@
 package model;
 
 public class Arista {
-    private String vertice1;
-    private String vertice2;
+    private Integer vertice1;
+    private Integer vertice2;
 
-    public Arista(String vertice1, String vertice2) {
+    public Arista(Integer vertice1, Integer vertice2) {
         this.vertice1 = vertice1;
         this.vertice2 = vertice2;
     }
 
-    public String getVertice1() {
+    public Integer getVertice1() {
         return vertice1;
     }
 
-    public String getVertice2() {
+    public Integer getVertice2() {
         return vertice2;
     }
 

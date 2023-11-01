@@ -9,7 +9,7 @@ import java.util.Set;
 public class Model_Grafo {
 	
 	//Advertencia no si la logica esta correcta, talvez este mal, con un 75%
-    private Set<String> vertices;
+    private Set<Integer> vertices;
     private Set<Arista> aristas;
 
     public Model_Grafo() {
@@ -17,26 +17,26 @@ public class Model_Grafo {
         aristas = new HashSet<>();
     }
 
-    public void AddVertice(String vertice) {
-        vertices.add(vertice);
+    public void AddVertice(int i) {
+        vertices.add(i);
     }
 
-    public void addArista(String v1, String v2) {
+    public void addArista(Integer v1, Integer v2) {
         aristas.add(new Arista(v1, v2));
     }
 
-    public Set<String> setDominantMinimum() {
-        Set<String> setDominant = new HashSet<>();
+    public Set<Integer> setDominantMinimum() {
+        Set<Integer> setDominant = new HashSet<>();
         
         Set<Arista> aristasNotCovered = new HashSet<>(aristas);
 
         while (!aristasNotCovered.isEmpty()) {
-            String bestVertice = null;
+        	Integer bestVertice = 0;
             int maxCovered = 0;
 
-            for (String vertice : vertices) {
+            for (Integer vertice : vertices) {
                 if (!setDominant.contains(vertice)) {
-                    int covered = countAristasCovers(vertice, setDominant, aristasNotCovered);
+                	Integer covered = countAristasCovers(vertice, setDominant, aristasNotCovered);
 
                     if (covered > maxCovered) {
                         maxCovered = covered;
@@ -54,7 +54,7 @@ public class Model_Grafo {
         return setDominant;
     }
     
-    private int countAristasCovers(String vertice, Set<String> setDominant, Set<Arista> aristasNotCovered) {
+    private int countAristasCovers(Integer vertice, Set<Integer> setDominant, Set<Arista> aristasNotCovered) {
         int cubiertos = 0;
         for (Arista arista : aristasNotCovered) {
             if (arista.getVertice1().equals(vertice) || arista.getVertice2().equals(vertice)) {
@@ -66,7 +66,7 @@ public class Model_Grafo {
         return cubiertos;
     }
 
-    private void removeCoverAristas(String vertice, Set<String> conjuntoDominante, Set<Arista> aristasNoCubiertas) {
+    private void removeCoverAristas(Integer vertice, Set<Integer> conjuntoDominante, Set<Arista> aristasNoCubiertas) {
         Set<Arista> aristasAEliminar = new HashSet<>();
 
         for (Arista arista : aristasNoCubiertas) {
@@ -88,10 +88,10 @@ public class Model_Grafo {
                 if (line.contains(",")) {
                     String[] partes = line.split(",");
                     if (partes.length == 2) {
-                        addArista(partes[0], partes[1]);
+                        addArista(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]));
                     }
                 } else {
-                    AddVertice(line);
+                    AddVertice(Integer.parseInt(line));
                 }
             }
 
@@ -102,7 +102,7 @@ public class Model_Grafo {
     }
     
     
-    public Set<String> getVertices() {
+    public Set<Integer> getVertices() {
         return vertices;
     }
 
