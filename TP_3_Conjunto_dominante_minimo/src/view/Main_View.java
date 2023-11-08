@@ -25,6 +25,7 @@ public class Main_View {
     private JTextField verticeField;
     private JTextField aristaField;
     private JTextArea resultadoArea;
+    private JTextArea resultadoArea2;
     
     private JLabel vertexLabel;
     private JLabel aristaLabel;
@@ -66,6 +67,9 @@ public class Main_View {
 
         resultadoArea = new JTextArea();
         resultadoArea.setEditable(false);
+        
+        resultadoArea2 = new JTextArea();
+        resultadoArea2.setEditable(false);
 
         findingDominatButton = new JButton("Finding Dominant Set");
         findingDominatButton.setBounds(10, 30, 200, 45);
@@ -85,6 +89,7 @@ public class Main_View {
         
         frame.getContentPane().add(panel, BorderLayout.NORTH);
         frame.getContentPane().add(resultadoArea, BorderLayout.CENTER);
+        frame.getContentPane().add(resultadoArea2, BorderLayout.CENTER);
 //        frame.getContentPane().add(findingDominatButton, BorderLayout.WEST);
         frame.getContentPane().add(fieldUploadButton, BorderLayout.SOUTH);
         
@@ -97,6 +102,10 @@ public class Main_View {
 
     public void actualizarResultado(String resultado) {
         resultadoArea.setText(resultado);
+    }
+    
+    public void actualizarResultado2(String resultado) {
+        resultadoArea2.setText(resultado);
     }
 
 

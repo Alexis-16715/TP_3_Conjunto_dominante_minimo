@@ -12,7 +12,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+
 import model.Model_Grafo;
+import model.ConjuntoDominanteBackTracking;
 import view.Main_View;
 
 
@@ -122,9 +124,11 @@ public class Main_Controller {
 
     public void findSetDominant() {
         Set<Integer> conjuntoDominante = grafo.setDominantMinimum();
-        view.actualizarResultado("Conjunto Dominante Mínimo: " + conjuntoDominante);
+        //view.actualizarResultado("Conjunto Dominante Mínimo: " + conjuntoDominante);
+        
+        Set<Integer> backtrackingDominantSet = ConjuntoDominanteBackTracking.calcularConjuntoDominanteBacktracking(grafo);
+        view.actualizarResultado2("Conjunto Dominante Mínimo: " + conjuntoDominante +"\nConjunto Dominante Mínimo (Backtracking): " + backtrackingDominantSet);
     }
-    
     
     
 

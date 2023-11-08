@@ -100,6 +100,14 @@ public class Model_Grafo {
             System.out.println("Error uploading file: " + e.getMessage());
         }
     }
+    public Set<Integer> getNeightbours(Integer vertice){
+    	Set<Integer> neightbours = new HashSet<>();
+    	for (Arista arista: aristas) {
+    		if (arista.getVertice1() == vertice)
+    			neightbours.add(arista.getVertice2());	
+    	}
+    	return neightbours;
+    }
     
     
     public Set<Integer> getVertices() {
@@ -109,6 +117,10 @@ public class Model_Grafo {
     public Set<Arista> getAristas() {
         return aristas;
     }
+
+	public int tamano() {
+		return vertices.size();
+	}
 
     
     

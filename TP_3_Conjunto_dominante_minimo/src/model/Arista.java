@@ -16,6 +16,11 @@ public class Arista {
     public Integer getVertice2() {
         return vertice2;
     }
+    public boolean vertice1Equals(Integer vertice) {
+    	if (vertice1 == vertice)
+    		return true;
+    	return false;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -31,5 +36,6 @@ public class Arista {
         int result = vertice1.hashCode() + vertice2.hashCode();
         return result;
     }
+    
 }
 
